@@ -1,0 +1,68 @@
+
+\documentclass[a4paper]{article}
+
+% Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[backend=biber, style=ieee, citestyle=ieee]{biblatex}
+\addbibresource{references.bib}
+\usepackage[utf8]{inputenc}
+\usepackage{glossaries}
+\usepackage{todonotes}
+
+\newglossaryentry{latex}
+{
+    name=latex,
+    description={Is a mark up language specially suited 
+    for scientific documents}
+}
+
+
+% Document structure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\sloppy
+	\pagenumbering{roman}
+	\title{The Triangulation}
+	%\color{content_normal}
+	
+	\begin{titlepage}
+		\maketitle
+		\thispagestyle{empty}
+	\end{titlepage}
+
+	%\subfile{sections/disclaimer}
+
+	\tableofcontents
+	\newpage
+	\section{Introduction}
+   
+	This is the first section.
+	
+	\pagenumbering{arabic}
+	Example text \todo{Dummy text} and more text
+	cite ~\autocite{malhotra2010critical}.
+
+	
+	%\subfile{sections/example}
+	%\subfile{sections/context}
+	%\subfile{sections/objectives_functional_overview}
+	%\subfile{sections/quality_attributes_non_functional_requirements}
+	%\subfile{sections/constraints}
+	%\subfile{sections/principles}
+	%\subfile{sections/architecture}
+	%\subfile{sections/external_interfaces}
+	%\subfile{sections/code}
+	%\subfile{sections/data}
+	%\subfile{sections/infrastructure_architecture}
+	%\subfile{sections/deployment}
+	%\subfile{sections/operation_support}
+	%\subfile{sections/decision_log}	% add sections here
+	
+	\newpage
+	\printglossary[type=\acronymtype]
+	\printglossary
+	
+	\newpage
+	\printbibliography[heading=bibintoc]
+	
+	\newpage
+	\listoftodos[Notes]
+\end{document}
