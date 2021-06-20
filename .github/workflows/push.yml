@@ -23,8 +23,8 @@ jobs:
         run: tectonic --version
       - name: Run Tectonic + Biber
         run: |
-          tectonic --keep-intermediates --reruns 0 main.tex
-          biber main
+          # tectonic --keep-intermediates --reruns 0 main.tex
+          # biber main
           tectonic main.tex
       - name: Upload pdf
         uses: actions/upload-artifact@v2
