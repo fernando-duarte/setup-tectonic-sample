@@ -17,10 +17,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-TinyTeX-
       - uses: r-lib/actions/setup-tinytex@v2
+        env:
+          # install minimal version
+          TINYTEX_INSTALLER: TinyTeX-0
       - run: tlmgr --version
       - name: Install LaTeX packages for MaTeX
         run: |
-          tlmgr install standalone exscale lmodern
+          tlmgr install latex standalone lm
           tlmgr list --only-installed
       - name: Test compile
         run: pdflatex simple.tex
@@ -29,6 +32,6 @@ jobs:
         with:
           name: simple
           path: simple.pdf
-      - name: Setup tmate session
+      - name: Setup tmate sessio
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
