@@ -19,11 +19,11 @@ jobs:
       - uses: r-lib/actions/setup-tinytex@v2
         env:
           # install minimal version
-          TINYTEX_INSTALLER: TinyTeX-0
+          TINYTEX_INSTALLER: TinyTeX
       - run: tlmgr --version
       - name: Install LaTeX packages for MaTeX
         run: |
-          tlmgr install latex standalone lm
+          tlmgr install latex standalone lm svn-prov
           tlmgr list --only-installed
       - name: Test compile
         run: pdflatex simple.tex
@@ -32,6 +32,6 @@ jobs:
         with:
           name: simple
           path: simple.pdf
-      - name: Setup tmate sessio
+      - name: Setup tmate session
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
