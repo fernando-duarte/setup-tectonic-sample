@@ -17,7 +17,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-TinyTeX-
       - uses: r-lib/actions/setup-tinytex@v2
+        env:
+          # install minimal version
+          TINYTEX_INSTALLER: TinyTeX-0
       - run: tlmgr --version
+      - name: Install LaTeX packages for MaTeX
+        run: |
+          tlmgr install latex standalone lm
+          tlmgr list --only-installed
       - name: Test compile
         run: pdflatex simple.tex
       - name: Upload pdf
