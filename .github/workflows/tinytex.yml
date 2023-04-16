@@ -13,8 +13,8 @@ jobs:
         name: TinyTeX cache
         with:
           path: |
-            $HOME/.TinyTeX
-            $HOME/bin
+            ~/.TinyTeX
+            ~/bin
           key: ${{ runner.os }}-TinyTeX-${{ hashFiles('**/*.tex') }}
           restore-keys: |
             ${{ runner.os }}-TinyTeX-
@@ -35,5 +35,5 @@ jobs:
           name: simple
           path: simple.pdf
       - name: Setup tmate session
-        #if: ${{ failure() }}
+        if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
