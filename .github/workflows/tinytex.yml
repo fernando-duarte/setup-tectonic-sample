@@ -18,11 +18,16 @@ jobs:
             ${{ runner.os }}-TinyTeX-
       - uses: r-lib/actions/setup-tinytex@v2
       - run: tlmgr --version
-      - run: pdflatex main.tex
+      - name: Install LaTeX packages for MaTeX
+        run: |
+          tlmgr install standalone, exscale and lmodern
+          tlmgr list --only-installed
+      - name: Test compile
+        run: pdflatex simple.tex
       - name: Upload pdf
         uses: actions/upload-artifact@v3
         with:
-          name: main
-          path: main.pdf
+          name: simple
+          path: simple.pdf
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
