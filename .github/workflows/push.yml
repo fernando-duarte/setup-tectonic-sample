@@ -1,5 +1,5 @@
 name: 'Build LaTex Document with Biber'
-on: 
+on:
   push:
   workflow_dispatch:
 jobs:
@@ -8,25 +8,22 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - uses: actions/cache@v2
+        uses: actions/checkout@v3
+      - uses: actions/cache@v3
         name: Tectonic Cache
         with:
           path: ~/.cache/Tectonic
           key: ${{ runner.os }}-tectonic-${{ hashFiles('**/*.tex') }}
           restore-keys: |
-           ${{ runner.os }}-tectonic-
+            ${{ runner.os }}-tectonic-
       - uses: wtfjoke/setup-tectonic@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          biber-version: "2.17"
-      - name: Run tectonic --version
-        run: tectonic --version
+          biber-version: 'latest'
       - name: Run Tectonic + Biber
-        run: |
-          tectonic main.tex
+        run: tectonic main.tex
       - name: Upload pdf
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: main
           path: main.pdf
