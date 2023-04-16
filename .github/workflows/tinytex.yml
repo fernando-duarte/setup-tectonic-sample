@@ -20,7 +20,7 @@ jobs:
       - run: tlmgr --version
       - name: Install LaTeX packages for MaTeX
         run: |
-          tlmgr install standalone, exscale and lmodern
+          tlmgr install standalone exscale lmodern
           tlmgr list --only-installed
       - name: Test compile
         run: pdflatex simple.tex
