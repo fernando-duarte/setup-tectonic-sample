@@ -20,7 +20,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           tectonic-version: 'latest'
-          biber-version: 'latest'
+          biber-version: 2.17
       - name: Run Tectonic + Biber
         run: tectonic main.tex
       - name: Upload pdf
