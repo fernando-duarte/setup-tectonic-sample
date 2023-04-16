@@ -1,6 +1,5 @@
 name: 'Build LaTex Document with Biber'
 on:
-  push:
   workflow_dispatch:
 jobs:
   build:

@@ -1,0 +1,28 @@
+name: 'Build LaTex Document with Biber'
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        name: TinyTeX cache
+        with:
+          path: ~/.cache/TinyTeX
+          key: ${{ runner.os }}-TinyTeX-${{ hashFiles('**/*.tex') }}
+          restore-keys: |
+            ${{ runner.os }}-TinyTeX-
+      - uses: r-lib/actions/setup-tinytex@v2
+      - run: tlmgr --version
+      - run: pdflatex main.tex
+      - name: Upload pdf
+        uses: actions/upload-artifact@v3
+        with:
+          name: main
+          path: main.pdf
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
