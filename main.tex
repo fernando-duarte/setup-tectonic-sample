@@ -1,68 +1,128 @@
+% !BIB program = biber
+\documentclass[12pt]{article}
 
-\documentclass[a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
 
-% Packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[backend=biber, style=ieee, citestyle=ieee]{biblatex}
-\addbibresource{references.bib}
-\usepackage[utf8]{inputenc}
-\usepackage{glossaries}
-\usepackage{todonotes}
+\usepackage{amsmath}
+\usepackage{amsfonts}
 
-\newglossaryentry{latex}
-{
-    name=latex,
-    description={Is a mark up language specially suited 
-    for scientific documents}
+\usepackage[ngerman,english]{babel}% english is main language
+\useshorthands{"}
+\addto\extrasenglish{\languageshorthands{ngerman}} % to use "= instead of a regular hyphen to allow line breaks in hyphenated words
+
+\usepackage{csquotes}
+
+\usepackage{graphicx}
+\usepackage{tabularx,dcolumn}
+\usepackage{booktabs}
+
+%\usepackage[table]{xcolor}
+%\usepackage{adjustbox}
+
+\usepackage[format=plain,indention=.5cm,font = small, labelsep = period,  width=.95\linewidth,tableposition=bottom]{caption}
+\usepackage{subcaption}
+\usepackage{floatrow}
+\floatsetup[table]{capposition=bottom}
+
+\usepackage{color}
+\definecolor{MyBrown}{rgb}{0.3,0,0}
+\definecolor{MyBlue}{rgb}{0,0,0.3}
+\definecolor{MyRed}{rgb}{0.4,0,0.1}
+\definecolor{MyGreen}{rgb}{0,0.4,0}
+
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+
+\hypersetup{pdftitle={The Market Price of Risk and Macro-Financial Dynamics},
+bookmarksnumbered=true,
+colorlinks=true,
+linkcolor=MyBlue,
+citecolor=MyRed,
+filecolor=MyBlue,
+urlcolor=MyGreen
 }
 
+\usepackage{microtype} %better line breaks, fewer over/underfull
+\input{./latex/biblatex-aer} % pass options to biblatex using \PassOptionsToPackage{<option>}{biblatex-chicago}  
+%\addbibresource{vfci.bib}
 
-% Document structure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ 
+\usepackage{authblk} 
+
+ \title{\textbf{The Market Price of Risk and \\ Macro-Financial Dynamics}\thanks{The views expressed  this paper are those of the authors and do not necessarily represent the views of the International Monetary Fund, its Management, or its Executive Directors. We would like to thank Miguel Acosta for sharing an updated dataset of monetary policy shocks from \cite{ns_shock}, Anna Cieslak for sharing a updated dataset of the news shocks from \cite{cp_shock}, and \cite{bpss} for making their code available. We thank Markus Brunnermeier, John Campbell, Emi Nakamura, and Harald Uhlig for helpful comments. We also thank Luu Zhang for outstanding research assistance.} \\ }
+\author[1]{Tobias Adrian}
+\author[2]{Fernando Duarte}
+\author[1]{Tara Iyer}
+\affil[1]{International Monetary Fund}
+\affil[2]{Brown University}
+\date{\today}
+
+\usepackage[titletoc]{appendix}
+\usepackage{subfiles} % must be last usepackage
+
+\providecommand{\topdir}{.}
+\addglobalbib{\topdir/vfci.bib} % topdir is needed here so that
+                                      % we can resolve the path in the subfile
+                                      % correctly. There we re-define the
+                                      % topdir macro to the location of the
+                                      % bib file.
+% path for figures and tables 
+\graphicspath{{\topdir/figures/}{./InternetAppendix/figures/}}
+\makeatletter
+\def\input@path{{\topdir/tables/}{\topdir/InternetAppendix/tables/}}
+\makeatother
+
+\makeatletter
+\newcommand*{\addFileDependency}[1]{% argument=file name and extension
+\typeout{(#1)}% latexmk will find this if $recorder=0
+% however, in that case, it will ignore #1 if it is a .aux or 
+% .pdf file etc and it exists! If it doesn't exist, it will appear 
+% in the list of dependents regardless)
+%
+% Write the following if you want it to appear in \listfiles 
+% --- although not really necessary and latexmk doesn't use this
+%
+\@addtofilelist{#1}
+%
+% latexmk will find this message if #1 doesn't exist (yet)
+\IfFileExists{#1}{}{\typeout{No file #1.}}
+}\makeatother
+
+\newcommand*{\myexternaldocument}[1]{%
+\externaldocument{#1}%
+\addFileDependency{#1.tex}%
+\addFileDependency{#1.aux}%
+}
+
+%\myexternaldocument{\topdir/InternetAppendix/InternetAppendix}
+
+
+
 \begin{document}
-	\sloppy
-	\pagenumbering{roman}
-	\title{The Triangulation}
-	%\color{content_normal}
-	
-	\begin{titlepage}
-		\maketitle
-		\thispagestyle{empty}
-	\end{titlepage}
 
-	%\subfile{sections/disclaimer}
+\setcounter{page}{0}
+\maketitle
 
-	\tableofcontents
-	\newpage
-	\section{Introduction}
-   
-	This is the first section.
-	
-	\pagenumbering{arabic}
-	Example text \todo{Dummy text} and more text here
-	cite ~\autocite{malhotra2010critical}.
+\abstract{\noindent We propose the log conditional volatility of GDP spanned by financial factors as ``Volatility Financial Conditions Index'' (VFCI) and derive conditions under which it is the log market price of risk. The VFCI exhibits superior explanatory power for stock and bond risk premia compared to other FCIs. We use a variety of identification strategies and instruments to demonstrate robust causal relationships between the VFCI and macroeconomic aggregates: a tightening of the VFCI leads to a persistent contraction of output and triggers an immediate easing of monetary policy. Conversely, contractionary monetary policy shocks cause tighter financial conditions.
+\vfill
+\noindent \textbf{Keywords}: Macro-Finance, Monetary Policy, Financial Conditions, Growth-at-Risk
+\textbf{JEL Codes}: E44, E52, G12
+\vspace{1in}
+}
+\thispagestyle{empty}
 
-	
-	%\subfile{sections/example}
-	%\subfile{sections/context}
-	%\subfile{sections/objectives_functional_overview}
-	%\subfile{sections/quality_attributes_non_functional_requirements}
-	%\subfile{sections/constraints}
-	%\subfile{sections/principles}
-	%\subfile{sections/architecture}
-	%\subfile{sections/external_interfaces}
-	%\subfile{sections/code}
-	%\subfile{sections/data}
-	%\subfile{sections/infrastructure_architecture}
-	%\subfile{sections/deployment}
-	%\subfile{sections/operation_support}
-	%\subfile{sections/decision_log}	% add sections here
-	
-	\newpage
-	\printglossary[type=\acronymtype]
-	\printglossary
-	
-	\newpage
-	\printbibliography[heading=bibintoc]
-	
-	\newpage
-	\listoftodos[Notes]
+
+\section{Introduction}
+
+Financial conditions indices (FCIs) are widely used by policy makers and practitioners, and are also increasingly common in the academic literature. However, FCIs are largely empirically motivated and lack a solid link to economic theory. In this paper, we propose an FCI that is the market price of risk in the economy under general circumstances and estimate it as the conditional volatility of GDP spanned by financial factors. We call this FCI the VFCI, or Volatility-FCI. 
+
+We start with a general framework for modeling macro-financial interactions. The absence of arbitrage implies the existence of a state price density that prices all assets in the economy. The volatility of the pricing kernel is generally referred to as the ``market price of risk''. When a representative consumer with time separable preferences exists, the market price of risk can be measured as volatility of aggregate consumption (see \textcite{breeden1979}, \cite{DuffieZame89}) and, more generically, the volatility of measures of aggregate economic activity such as GDP.\footnote{When preferences are not time separable, but consumption volatility is stochastic, the market price of risk features additional terms related to the non-time-separability. Leading examples are the habit formation model of \cite{campbell1999force} and the Epstein-Zin model by \cite{bansal2004risks}.} This theoretical framework implies that the VFCI can be estimated as the conditional volatility of consumption or GDP that is spanned by financial factors.\footnote{\cite{jurado2015measuring} pursue a multifactor approach to measure the common movement in macroeconomic volatility.}
+
+\begin{singlespace}
+\printbibliography 
+\end{singlespace}
+
 \end{document}
