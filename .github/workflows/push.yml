@@ -28,3 +28,5 @@ jobs:
         with:
           name: main
           path: main.pdf
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
