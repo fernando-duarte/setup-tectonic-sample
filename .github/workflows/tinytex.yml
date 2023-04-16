@@ -12,7 +12,9 @@ jobs:
       - uses: actions/cache@v3
         name: TinyTeX cache
         with:
-          path: ~/.cache/TinyTeX
+          path: |
+            $HOME/.TinyTeX
+            $HOME/bin
           key: ${{ runner.os }}-TinyTeX-${{ hashFiles('**/*.tex') }}
           restore-keys: |
             ${{ runner.os }}-TinyTeX-
